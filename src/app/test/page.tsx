@@ -6,29 +6,13 @@ function Demo() {
   const height = 300
   const width = 200
   return (
-    <Carousel>
-      <CarouselSlide title="Slide 1">
-        <img
-          src="/images/1.jpg"
-          alt="1"
-          className="h-screen w-screen object-cover"
-        />
-      </CarouselSlide>
-      <CarouselSlide title="Slide 2">
-        <img
-          src="/images/2.jpg"
-          alt="2"
-          className="h-screen w-screen object-cover"
-        />
-      </CarouselSlide>
-      <CarouselSlide title="Slide 3">
-        <img
-          src="/images/3.jpg"
-          alt="3"
-          className="h-screen w-screen object-cover"
-        />
-      </CarouselSlide>
-    </Carousel>
+    <Carousel
+      slides={[
+        { title: "Slide 1", image: "/images/1.jpg" },
+        { title: "Slide 2", image: "/images/2.jpg" },
+        { title: "Slide 3", image: "/images/3.jpg" },
+      ]}
+    ></Carousel>
   )
 }
 
