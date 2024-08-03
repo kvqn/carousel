@@ -1,3 +1,5 @@
+import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
 import "@/styles/globals.css"
 
 import { GeistSans } from "geist/font/sans"
@@ -9,12 +11,20 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 }
 
+import { createTheme, MantineProvider } from "@mantine/core"
+
+const theme = createTheme({
+  /** Put your mantine theme override here */
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+      <body>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
+      </body>
     </html>
   )
 }
