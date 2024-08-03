@@ -1,15 +1,16 @@
 "use client"
 
-import { Carousel as MantineCarousel, type Embla } from "@mantine/carousel"
+import { Carousel as MantineCarousel } from "@mantine/carousel"
 import { Chip } from "@mantine/core"
 import { useState } from "react"
+import { EmblaCarouselType } from "embla-carousel"
 
 export function Carousel({
   slides,
 }: {
   slides: { image: string; title: string }[]
 }) {
-  const [embla, setEmbla] = useState<Embla | null>(null)
+  const [embla, setEmbla] = useState<EmblaCarouselType | null>(null)
 
   return (
     <div className="relative h-screen w-screen">
@@ -19,6 +20,7 @@ export function Carousel({
             key={index}
             checked={false}
             onClick={() => {
+              if (!embla) return
               embla.scrollTo(index)
             }}
           >
