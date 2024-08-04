@@ -1,9 +1,10 @@
 "use client"
 
 import { Carousel as MantineCarousel } from "@mantine/carousel"
-import { Chip } from "@mantine/core"
-import { useState } from "react"
-import { EmblaCarouselType } from "embla-carousel"
+// import { Chip } from "@mantine/core"
+import { useEffect, useState } from "react"
+import { type EmblaCarouselType } from "embla-carousel"
+import { cn } from "@/lib/utils"
 
 export function Carousel({
   slides,
@@ -11,17 +12,19 @@ export function Carousel({
   slides: { image: string; title: string }[]
 }) {
   const [embla, setEmbla] = useState<EmblaCarouselType | null>(null)
+  const [selectedSlide, setSelectedSlide] = useState(0)
 
   return (
-    <div className="relative h-screen w-screen">
-      <div className="-transform-x-1/2 absolute left-1/2 top-4 z-10 flex h-4 gap-4">
+    <div className="flex flex-col gap-2 overflow-hidden">
+      <div className="flex items-center justify-center gap-4 rounded-md p-2">
         {slides.map((slide, index) => (
           <Chip
             key={index}
-            checked={false}
+            selected={selectedSlide == index}
             onClick={() => {
               if (!embla) return
               embla.scrollTo(index)
+              setSelectedSlide(index)
             }}
           >
             {slide.title}
@@ -35,11 +38,8 @@ export function Carousel({
           getEmblaApi={setEmbla}
         >
           {slides.map((slide, index) => (
-            <MantineCarousel.Slide key={index}>
-              <img
-                src={slide.image}
-                className="h-screen w-screen object-cover"
-              />
+            <MantineCarousel.Slide key={index} className="overflow-hidden">
+              <img src={slide.image} className="object-contain" />
             </MantineCarousel.Slide>
           ))}
         </MantineCarousel>
@@ -48,24 +48,26 @@ export function Carousel({
   )
 }
 
-export function CarouselSlide({
+function Chip({
   children,
-  title,
+  selected,
+  onClick,
 }: {
   children: React.ReactNode
-  title?: string
+  selected: boolean
+  onClick?: () => void
 }) {
   return (
-    <MantineCarousel.Slide className="relative" title="test">
-      {title && (
-        <Chip
-          className="absolute bottom-4 left-1/2 -translate-x-1/2"
-          checked={false}
-        >
-          {title}
-        </Chip>
+    <div
+      className={cn(
+        "cursor-pointer text-nowrap rounded-full bg-white px-4 py-2 text-sm transition-colors",
+        {
+          "bg-[#6e18fb] text-white": selected,
+        },
       )}
+      onClick={onClick}
+    >
       {children}
-    </MantineCarousel.Slide>
+    </div>
   )
 }

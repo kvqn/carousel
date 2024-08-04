@@ -1,5 +1,5 @@
 "use client"
-import { Carousel, CarouselSlide } from "@/components/carousel"
+import { Carousel } from "@/components/carousel"
 import Image from "next/image"
 
 function Demo() {
@@ -18,8 +18,8 @@ function Demo() {
 
 export default function Page() {
   return (
-    <div className="flex max-h-screen w-fit items-center justify-center bg-neutral-200">
-      <div className="object-cover">
+    <div className="flex h-screen items-center justify-center">
+      <div className="h-120 max-w-[400px] overflow-hidden p-2">
         <Demo />
       </div>
     </div>
